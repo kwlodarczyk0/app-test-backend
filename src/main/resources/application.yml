@@ -7,11 +7,9 @@ server:
 allowed:
   origin: http://localhost:4200
 
-
-
 spring:
   datasource:
-    password: ubu101
+    password: postgres
     url: jdbc:postgresql://localhost:5432/registration
     username: postgres
   jpa:
