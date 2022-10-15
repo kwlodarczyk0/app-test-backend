@@ -4,9 +4,10 @@ import com.example.appbackend.api.dto.RoleToUserForm;
 import com.example.appbackend.domain.AppUser;
 import com.example.appbackend.domain.Role;
 import com.example.appbackend.service.AppUserService;
-import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -36,10 +37,21 @@ public class AppUserController {
         return ResponseEntity.created(uri).body(appUserService.saveRole(role));
     }
 
+    @GetMapping("/user/getUser/{username}")
+    public ResponseEntity<AppUser> getUser(@PathVariable String username){
+        return ResponseEntity.ok().body(appUserService.getUser(username));
+    }
 
     @PostMapping("/role/addToUser")
     public ResponseEntity<?>addRoleToUser(@RequestBody RoleToUserForm form) {
         appUserService.addRoleToAppUser(form.getUsername(), form.getUsername());
         return ResponseEntity.ok().build();
     }
+
+    @GetMapping("/user/getUser")
+    public AppUser getUser() {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        return appUserService.getUser(auth.getPrincipal().toString());
+    }
+
 }

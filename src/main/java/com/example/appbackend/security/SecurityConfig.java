@@ -32,7 +32,7 @@ import static java.lang.invoke.VarHandle.AccessMode.GET;
 @RequiredArgsConstructor
 public class SecurityConfig extends WebSecurityConfigurerAdapter{
 
-    private final UserDetailsService userDetailsService; //required args constr
+    private final UserDetailsService userDetailsService; //required args constructor
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
 
@@ -45,9 +45,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
     protected void configure(HttpSecurity http) throws Exception {
         http.cors().and().csrf().disable();
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-        http.authorizeRequests().antMatchers("/login").permitAll();
+        //http.authorizeRequests().antMatchers("/login","/swagger-ui/**","/v3/api-docs/**","/api/**").permitAll();
+        http.authorizeRequests().antMatchers("/login","/swagger-ui/**","/v3/api-docs/**").permitAll();
         http.authorizeRequests().antMatchers(HttpMethod.GET,"/api/user/**").hasAnyAuthority("ROLE_USER");
         http.authorizeRequests().antMatchers(HttpMethod.POST,"/api/user/save/**").hasAnyAuthority("ROLE_ADMIN");
+        http.authorizeRequests().antMatchers(HttpMethod.GET,"/api/project/**").hasAnyAuthority("ROLE_USER");
         http.authorizeRequests().anyRequest().authenticated();
         http.addFilter(new CustomAuthenticationFilter(authenticationManagerBean()));
         http.addFilterBefore(new CustomAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class);

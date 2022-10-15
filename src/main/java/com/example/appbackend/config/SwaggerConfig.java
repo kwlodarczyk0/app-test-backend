@@ -15,7 +15,7 @@ public class SwaggerConfig {
 
     public Info apiInfo() {
         Info info = new Info();
-        info.title("Students API")
+        info.title("Task-Tracker API")
                 .description("API for project")
                 .version("v1.1.2");
         return info;
