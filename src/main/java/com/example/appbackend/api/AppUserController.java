@@ -49,9 +49,16 @@ public class AppUserController {
     }
 
     @GetMapping("/user/getUser")
-    public AppUser getUser() {
+    public AppUser getCurrentUser() {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         return appUserService.getUser(auth.getPrincipal().toString());
     }
+
+    @GetMapping ("/user/roles")
+    public List<Role> getCurrentUserRoles(){
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        return appUserService.getRoles(auth.getPrincipal().toString());
+    }
+
 
 }

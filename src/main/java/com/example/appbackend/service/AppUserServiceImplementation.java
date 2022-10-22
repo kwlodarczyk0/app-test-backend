@@ -74,6 +74,11 @@ public class AppUserServiceImplementation implements AppUserService, UserDetails
     }
 
     @Override
+    public List<Role> getRoles(String username) {
+        return appUserRepository.getUserRoles(username);
+    }
+
+    @Override
     public List<AppUser> getUsers() {
         log.info("fetch new users");
         return appUserRepository.findAll();

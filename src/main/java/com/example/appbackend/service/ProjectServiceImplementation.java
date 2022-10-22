@@ -10,6 +10,7 @@ import com.example.appbackend.repository.ProjectRepository;
 import com.example.appbackend.repository.TaskRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -37,8 +38,8 @@ public class ProjectServiceImplementation implements ProjectService {
     }
 
     @Override
-    public List<Project> getUserProject(Long id) {
-        return projectRepository.findProjectsByUsersId(id);
+    public List<Project> getUserProject(String username) {
+        return projectRepository.findProjectsByUsersUsername(username);
     }
 
     @Override
@@ -51,6 +52,12 @@ public class ProjectServiceImplementation implements ProjectService {
         //log.info("Adding new role: {} to user: {}",roleName,username);
         AppUser appUser = appUserRepository.findByUsername(username);
         Project project = projectRepository.findByName(projectName);
+
+        if(appUser==null){
+            log.error("User not found in the db");
+            throw new UsernameNotFoundException("User not found in the db");
+        }
+
         project.getUsers().add(appUser);
     }
 

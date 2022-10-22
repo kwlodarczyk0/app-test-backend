@@ -26,17 +26,24 @@ public class StartConfiguration {
             appUserService.saveUser(new AppUser(null,"Hohn","test","1234",new ArrayList<>()));
             appUserService.addRoleToAppUser("test","ROLE_USER");
 
+            appUserService.saveUser(new AppUser(null,"Hohn","krystian","1234",new ArrayList<>()));
+            appUserService.addRoleToAppUser("krystian","ROLE_USER");
+
+
             projectService.addProject(new Project(null,"Essilor",new ArrayList<>(),new ArrayList<>()));
+            projectService.addProject(new Project(null,"KESKO",new ArrayList<>(),new ArrayList<>()));
 
             projectService.addUserToProject("Essilor","test");
+            projectService.addUserToProject("KESKO","test");
 
             taskService.addTask(new Task(null,"ESIINT-510","Active",null));
+            taskService.addTask(new Task(null,"ESIINT-511","DONE",null));
 
             taskService.addUserToTask("test","ESIINT-510");
 
 
             projectService.addTaskToProject("ESIINT-510","Essilor");
-
+            projectService.addTaskToProject("ESIINT-511","Essilor");
 
             //add task to project
 

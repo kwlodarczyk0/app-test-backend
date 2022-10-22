@@ -8,7 +8,7 @@ public interface ProjectService {
 
     Project getProject(String name);
 
-    List<Project> getUserProject(Long id);
+    List<Project> getUserProject(String username);
 
     Project addProject(Project project);
     void addUserToProject(String projectName,String username);
