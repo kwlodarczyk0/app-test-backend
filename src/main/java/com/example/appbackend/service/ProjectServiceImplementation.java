@@ -24,17 +24,27 @@ public class ProjectServiceImplementation implements ProjectService {
 
     private final ProjectRepository projectRepository;
     private final AppUserRepository appUserRepository;
-
     private final TaskRepository taskRepository;
 
     @Override
-    public Project getProject(String name) throws RuntimeException {
+    public Project getProject(String name,String username) throws RuntimeException {
         Project project =  projectRepository.findByName(name);
-        if(project!=null){
-            return project;
-        } else {
-            throw new RuntimeException("Project does not exist");
+        //AppUser appUser = appUserRepository.findByUsername(username);
+
+        boolean isUserInProject = false;
+
+        if(project==null) throw new RuntimeException("Project does not exist");
+
+
+        for (AppUser user: project.getUsers()) {
+            if(user.getUsername().equals(username)){
+                isUserInProject = true;
+                break;
+            }
         }
+
+        if(!isUserInProject) throw new RuntimeException("user doesn't have access to this project");
+        return project;
     }
 
     @Override

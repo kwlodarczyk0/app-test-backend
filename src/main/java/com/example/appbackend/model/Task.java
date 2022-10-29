@@ -5,7 +5,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.time.LocalDate;
 import java.util.Date;
 
 @Entity
@@ -30,5 +29,6 @@ public class Task {
     @JoinColumn(name = "user_id")
     private AppUser user;
     private Date creationDate;
+    private String description;
 
 }

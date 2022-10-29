@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface ProjectService {
 
-    Project getProject(String name);
+    Project getProject(String name,String username);
 
     List<Project> getUserProject(String username);
 

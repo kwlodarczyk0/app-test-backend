@@ -43,9 +43,9 @@ public class StartConfiguration {
             projectService.addProject(new Project(null,"KESKO",new ArrayList<>(),new ArrayList<>()),"test");
 
 
-            taskService.addTask(new Task(null,"ESIINT-510","OPEN",null,null));
-            taskService.addTask(new Task(null,"ESIINT-512","IN_PROGRESS",null,null));
-            taskService.addTask(new Task(null,"ESIINT-511","DONE",null,null));
+            taskService.addTask(new Task(null,"ESIINT-510","OPEN",null,null,null));
+            taskService.addTask(new Task(null,"ESIINT-512","IN_PROGRESS",null,null,null));
+            taskService.addTask(new Task(null,"ESIINT-511","DONE",null,null,null));
 
             taskService.addUserToTask("test","ESIINT-510");
 

@@ -21,7 +21,8 @@ public class ProjectController {
     @GetMapping("/project/getProject/{name}")
     public ResponseEntity<Project> getProject(@PathVariable String name){
         //add configuration that if actuall user is not in project he is not able to see project details
-        return ResponseEntity.ok().body(projectService.getProject(name));
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        return ResponseEntity.ok().body(projectService.getProject(name,auth.getPrincipal().toString()));
     }
 
     @GetMapping("/project/user-projects")
