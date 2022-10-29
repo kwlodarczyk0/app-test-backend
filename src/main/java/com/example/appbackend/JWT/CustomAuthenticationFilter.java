@@ -1,4 +1,4 @@
-package com.example.appbackend.filter;
+package com.example.appbackend.JWT;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
@@ -38,8 +38,7 @@ public class CustomAuthenticationFilter extends UsernamePasswordAuthenticationFi
         String username = request.getParameter("username");
         String password = request.getParameter("password");
         log.info("ok");
-        UsernamePasswordAuthenticationToken authenticationToken =
-                new UsernamePasswordAuthenticationToken(username,password);
+        UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(username,password);
 
         return authenticationManager.authenticate(authenticationToken);
 

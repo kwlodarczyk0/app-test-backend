@@ -1,6 +1,6 @@
 package com.example.appbackend.repository;
 
-import com.example.appbackend.domain.Task;
+import com.example.appbackend.model.Task;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

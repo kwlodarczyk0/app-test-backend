@@ -1,4 +1,4 @@
-package com.example.appbackend.api.dto;
+package com.example.appbackend.controller.dto;
 
 import lombok.Data;
 
@@ -8,4 +8,5 @@ import java.io.Serializable;
 public class RoleToUserForm implements Serializable {
     private String username;
     private String rolename;
+
 }

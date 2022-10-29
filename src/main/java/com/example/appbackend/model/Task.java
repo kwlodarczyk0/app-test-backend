@@ -1,10 +1,13 @@
-package com.example.appbackend.domain;
+package com.example.appbackend.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.time.LocalDate;
+import java.util.Date;
+
 @Entity
 @Data
 @NoArgsConstructor
@@ -26,5 +29,6 @@ public class Task {
     @ManyToOne
     @JoinColumn(name = "user_id")
     private AppUser user;
+    private Date creationDate;
 
 }

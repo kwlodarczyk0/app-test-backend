@@ -1,20 +1,29 @@
 package com.example.appbackend.config;
 
-import com.example.appbackend.domain.AppUser;
-import com.example.appbackend.domain.Project;
-import com.example.appbackend.domain.Role;
-import com.example.appbackend.domain.Task;
-import com.example.appbackend.service.AppUserService;
-import com.example.appbackend.service.ProjectService;
-import com.example.appbackend.service.TaskService;
+import com.example.appbackend.model.AppUser;
+import com.example.appbackend.model.Project;
+import com.example.appbackend.model.Role;
+import com.example.appbackend.model.Task;
+import com.example.appbackend.service.interfaces.AppUserService;
+import com.example.appbackend.service.interfaces.ProjectService;
+import com.example.appbackend.service.interfaces.TaskService;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.ArrayList;
 
 @Configuration
 public class StartConfiguration {
+
+    @Bean
+    public PasswordEncoder passwordEncoder()
+    {
+        return new BCryptPasswordEncoder();
+    }
+
     @Bean
     CommandLineRunner run(AppUserService appUserService, ProjectService projectService, TaskService taskService){
         return args -> {
@@ -30,22 +39,20 @@ public class StartConfiguration {
             appUserService.addRoleToAppUser("krystian","ROLE_USER");
 
 
-            projectService.addProject(new Project(null,"Essilor",new ArrayList<>(),new ArrayList<>()));
-            projectService.addProject(new Project(null,"KESKO",new ArrayList<>(),new ArrayList<>()));
+            projectService.addProject(new Project(null,"Essilor",new ArrayList<>(),new ArrayList<>()),"test");
+            projectService.addProject(new Project(null,"KESKO",new ArrayList<>(),new ArrayList<>()),"test");
 
-            projectService.addUserToProject("Essilor","test");
-            projectService.addUserToProject("KESKO","test");
 
-            taskService.addTask(new Task(null,"ESIINT-510","Active",null));
-            taskService.addTask(new Task(null,"ESIINT-511","DONE",null));
+            taskService.addTask(new Task(null,"ESIINT-510","OPEN",null,null));
+            taskService.addTask(new Task(null,"ESIINT-512","IN_PROGRESS",null,null));
+            taskService.addTask(new Task(null,"ESIINT-511","DONE",null,null));
 
             taskService.addUserToTask("test","ESIINT-510");
 
-
             projectService.addTaskToProject("ESIINT-510","Essilor");
             projectService.addTaskToProject("ESIINT-511","Essilor");
+            projectService.addTaskToProject("ESIINT-512","Essilor");
 
-            //add task to project
 
 
         };

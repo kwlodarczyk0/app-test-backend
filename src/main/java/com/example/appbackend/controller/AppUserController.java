@@ -1,9 +1,9 @@
-package com.example.appbackend.api;
+package com.example.appbackend.controller;
 
-import com.example.appbackend.api.dto.RoleToUserForm;
-import com.example.appbackend.domain.AppUser;
-import com.example.appbackend.domain.Role;
-import com.example.appbackend.service.AppUserService;
+import com.example.appbackend.controller.dto.RoleToUserForm;
+import com.example.appbackend.model.AppUser;
+import com.example.appbackend.model.Role;
+import com.example.appbackend.service.interfaces.AppUserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
@@ -58,6 +58,11 @@ public class AppUserController {
     public List<Role> getCurrentUserRoles(){
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         return appUserService.getRoles(auth.getPrincipal().toString());
+    }
+
+    @PostMapping("/user/addUser")
+    public AppUser addNewUser(@RequestBody AppUser appUser){
+        return appUserService.saveUser(appUser);
     }
 
 

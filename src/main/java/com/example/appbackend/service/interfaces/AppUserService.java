@@ -1,7 +1,7 @@
-package com.example.appbackend.service;
+package com.example.appbackend.service.interfaces;
 
-import com.example.appbackend.domain.AppUser;
-import com.example.appbackend.domain.Role;
+import com.example.appbackend.model.AppUser;
+import com.example.appbackend.model.Role;
 
 import java.util.List;
 

@@ -1,11 +1,8 @@
-package com.example.appbackend.domain;
-
+package com.example.appbackend.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -17,25 +14,21 @@ import static javax.persistence.FetchType.EAGER;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Project {
+public class AppUser {
     @Id
     @SequenceGenerator(
-            name="project_sequence",
-            sequenceName = "project_sequence",
+            name="user_sequence",
+            sequenceName = "user_sequence",
             allocationSize = 1
     )
     @GeneratedValue(
             strategy = GenerationType.SEQUENCE,
-            generator = "project_sequence"
+            generator = "user_sequence"
     )
     private Long id;
     private String name;
+    private String username;
+    private String password; //write dto to remove password from response
     @ManyToMany(fetch = EAGER)
-    private Collection<AppUser> users = new ArrayList<>();
-
-    @ManyToMany(fetch = EAGER)
-    @Fetch(value = FetchMode.SUBSELECT)
-    private Collection<Task> tasks = new ArrayList<>();
-
-
+    private Collection<Role> roles = new ArrayList<>();
 }

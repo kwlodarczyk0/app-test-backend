@@ -1,4 +1,4 @@
-package com.example.appbackend.domain;
+package com.example.appbackend.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -6,15 +6,12 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
-import static javax.persistence.GenerationType.AUTO;
-
 @Entity
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class Role {
     @Id
-    //@GeneratedValue(strategy = AUTO)
     @SequenceGenerator(
             name="role_sequence",
             sequenceName = "role_sequence",

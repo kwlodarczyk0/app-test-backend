@@ -1,9 +1,10 @@
 package com.example.appbackend.service;
 
-import com.example.appbackend.domain.AppUser;
-import com.example.appbackend.domain.Role;
+import com.example.appbackend.model.AppUser;
+import com.example.appbackend.model.Role;
 import com.example.appbackend.repository.AppUserRepository;
 import com.example.appbackend.repository.RoleRepository;
+import com.example.appbackend.service.interfaces.AppUserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -50,7 +51,9 @@ public class AppUserServiceImplementation implements AppUserService, UserDetails
     public AppUser saveUser(AppUser user) {
         log.info("Saving new {} to database",user.getName());
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-        return appUserRepository.save(user);
+        appUserRepository.save(user);
+        addRoleToAppUser(user.getUsername(),"ROLE_USER");
+        return user;
     }
 
     @Override

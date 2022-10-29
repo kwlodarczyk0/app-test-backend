@@ -1,4 +1,4 @@
-package com.example.appbackend.api.dto;
+package com.example.appbackend.controller.dto;
 
 import lombok.Data;
 

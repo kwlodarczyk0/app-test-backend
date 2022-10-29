@@ -1,6 +1,6 @@
-package com.example.appbackend.service;
+package com.example.appbackend.service.interfaces;
 
-import com.example.appbackend.domain.Task;
+import com.example.appbackend.model.Task;
 
 public interface TaskService {
     Task getTask(String code);
@@ -8,5 +8,7 @@ public interface TaskService {
     Task addTask(Task task);
 
     void addUserToTask(String username,String taskCode);
+
+    Task changeTaskStatus(String code, String status);
 
 }

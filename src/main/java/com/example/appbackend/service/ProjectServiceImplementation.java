@@ -1,13 +1,13 @@
 package com.example.appbackend.service;
 
 
-import com.example.appbackend.domain.AppUser;
-import com.example.appbackend.domain.Project;
-import com.example.appbackend.domain.Role;
-import com.example.appbackend.domain.Task;
+import com.example.appbackend.model.AppUser;
+import com.example.appbackend.model.Project;
+import com.example.appbackend.model.Task;
 import com.example.appbackend.repository.AppUserRepository;
 import com.example.appbackend.repository.ProjectRepository;
 import com.example.appbackend.repository.TaskRepository;
+import com.example.appbackend.service.interfaces.ProjectService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -43,8 +43,11 @@ public class ProjectServiceImplementation implements ProjectService {
     }
 
     @Override
-    public Project addProject(Project project) {
-        return projectRepository.save(project);
+    public Project addProject(Project project,String username) {
+        AppUser appUser = appUserRepository.findByUsername(username);
+        projectRepository.save(project);
+        addUserToProject(project.getName(),appUser.getUsername());
+        return project;
     }
 
     @Override

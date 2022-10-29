@@ -1,9 +1,8 @@
-package com.example.appbackend.api;
+package com.example.appbackend.controller;
 
-import com.example.appbackend.api.dto.UserToProject;
-import com.example.appbackend.domain.AppUser;
-import com.example.appbackend.domain.Project;
-import com.example.appbackend.service.ProjectService;
+import com.example.appbackend.controller.dto.UserToProject;
+import com.example.appbackend.model.Project;
+import com.example.appbackend.service.interfaces.ProjectService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
@@ -21,6 +20,7 @@ public class ProjectController {
 
     @GetMapping("/project/getProject/{name}")
     public ResponseEntity<Project> getProject(@PathVariable String name){
+        //add configuration that if actuall user is not in project he is not able to see project details
         return ResponseEntity.ok().body(projectService.getProject(name));
     }
 
@@ -33,6 +33,12 @@ public class ProjectController {
     @PostMapping("/project/add/add-user-to-project")
     public void addUserToProject(@RequestBody UserToProject user){
         projectService.addUserToProject(user.getProjectName(),user.getUsername());
+    }
+
+    @PostMapping("/project/add/add-project")
+    public Project addProject(@RequestBody Project project){
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        return projectService.addProject(project,auth.getPrincipal().toString());
     }
 
 

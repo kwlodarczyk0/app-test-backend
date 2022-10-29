@@ -1,4 +1,4 @@
-package com.example.appbackend.filter;
+package com.example.appbackend.JWT;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTVerifier;
