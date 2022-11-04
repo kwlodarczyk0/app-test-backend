@@ -3,9 +3,15 @@ package com.example.appbackend.model;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
+
+import static javax.persistence.FetchType.EAGER;
 
 @Entity
 @Data
@@ -31,5 +37,9 @@ public class Task {
     private Date creationDate;
     private String description;
     private String priority;
+
+    @ManyToMany(fetch = EAGER)
+    @Fetch(value = FetchMode.SUBSELECT)
+    private Collection<Comment> comments = new ArrayList<>();
 
 }

@@ -33,21 +33,30 @@ public class StartConfiguration {
             appUserService.saveRole(new Role(null,"ROLE_SUPER_ADMIN"));
 
             appUserService.saveUser(new AppUser(null,"Hohn","test","1234",new ArrayList<>()));
-            appUserService.addRoleToAppUser("test","ROLE_USER");
+            //appUserService.addRoleToAppUser("test","ROLE_USER");
 
             appUserService.saveUser(new AppUser(null,"Hohn","krystian","1234",new ArrayList<>()));
-            appUserService.addRoleToAppUser("krystian","ROLE_USER");
+            //appUserService.addRoleToAppUser("krystian","ROLE_USER");
 
 
             projectService.addProject(new Project(null,"Essilor","test",new ArrayList<>(),new ArrayList<>()),"test");
             projectService.addProject(new Project(null,"KESKO","krystian",new ArrayList<>(),new ArrayList<>()),"test");
 
 
-            taskService.addTask(new Task(null,null,"OPEN",null,null,null,null),"Essilor");
+
+            taskService.addTask(new Task(null,null,"OPEN",null,null,"Lorem Ipsum is simply dummy text of the printing and typesetting industry","MINOR",new ArrayList<>()),"Essilor");
+
+
+            taskService.addCommentToTask("gang albani","Essilor-1","test");
+            taskService.addCommentToTask("gang albani","Essilor-1","krystian");
+
+            projectService.addUserToProject("KESKO","krystian");
 
             projectService.addTaskToProject("ESIINT-510","Essilor");
             projectService.addTaskToProject("ESIINT-511","Essilor");
             projectService.addTaskToProject("ESIINT-512","Essilor");
+
+
 
 
 

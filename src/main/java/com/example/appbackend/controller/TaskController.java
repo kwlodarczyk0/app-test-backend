@@ -1,6 +1,8 @@
 package com.example.appbackend.controller;
 
 import com.example.appbackend.controller.dto.ChangeTaskStatus;
+import com.example.appbackend.controller.dto.CommentToTask;
+import com.example.appbackend.controller.dto.DeleteComment;
 import com.example.appbackend.model.Task;
 import com.example.appbackend.service.interfaces.ProjectService;
 import com.example.appbackend.service.interfaces.TaskService;
@@ -56,6 +58,16 @@ public class TaskController {
         return taskService.addUserToTask(username,taskCode);
     }
 
+    @PostMapping("/task/addComment/{taskCode}")
+    public Task addCommentToTask(@PathVariable String taskCode, @RequestBody CommentToTask commentToTask){
+        return taskService.addCommentToTask(commentToTask.getText(),taskCode,commentToTask.getUsername());
+    }
+
+    @DeleteMapping("/task/removeComment/{taskCode}")
+    public Task removeCommentFromTask(@PathVariable String taskCode, @RequestBody DeleteComment deleteComment){
+        return taskService.deleteComment(taskCode,deleteComment.getId());
+    }
+
 
     //define a location -- change IT - for each project create the new directory where will be stored attachments
     public static final String DIRECTORY = System.getProperty("user.dir")+"/uploads";
@@ -88,7 +100,9 @@ public class TaskController {
         httpHeaders.add(CONTENT_DISPOSITION,"attachment;File-Name="+resource.getFilename());
         return ResponseEntity.ok().contentType(MediaType.parseMediaType(Files.probeContentType(filePath)))
                 .headers(httpHeaders).body(resource);
-
-
     }
+
+
+
+
 }
