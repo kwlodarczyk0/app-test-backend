@@ -66,4 +66,9 @@ public class AppUserController {
     }
 
 
+//    @GetMapping("/users/project-users/{projectName}")
+//    public List<String> getProjectUsers(@PathVariable String projectName){
+//        return appUserService.getProjectUsers(projectName);
+//    }
+
 }

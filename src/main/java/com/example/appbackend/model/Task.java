@@ -30,5 +30,6 @@ public class Task {
     private AppUser user;
     private Date creationDate;
     private String description;
+    private String priority;
 
 }

@@ -5,17 +5,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
 public class AppBackendApplication {
-
 	public static void main(String[] args) {
 		SpringApplication.run(AppBackendApplication.class, args);
 	}
-
-//    @Bean
-//    public PasswordEncoder passwordEncoder()
-//    {
-//        return new BCryptPasswordEncoder();
-//    }
-
-
 
 }

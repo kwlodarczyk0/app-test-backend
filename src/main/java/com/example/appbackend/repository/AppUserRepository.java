@@ -15,4 +15,6 @@ public interface AppUserRepository extends JpaRepository<AppUser,Long> {
     @Query("SELECT roles FROM AppUser WHERE username=?1")
     List<Role> getUserRoles(String username);
 
+
+
 }

@@ -21,23 +21,21 @@ import java.util.List;
 @Transactional
 @Slf4j
 public class ProjectServiceImplementation implements ProjectService {
-
     private final ProjectRepository projectRepository;
     private final AppUserRepository appUserRepository;
     private final TaskRepository taskRepository;
 
     @Override
-    public Project getProject(String name,String username) throws RuntimeException {
+    public Project getProject(String name,String username) throws RuntimeException  {
         Project project =  projectRepository.findByName(name);
-        //AppUser appUser = appUserRepository.findByUsername(username);
+        AppUser appUser = appUserRepository.findByUsername(username);
 
         boolean isUserInProject = false;
 
         if(project==null) throw new RuntimeException("Project does not exist");
 
-
         for (AppUser user: project.getUsers()) {
-            if(user.getUsername().equals(username)){
+            if(user.getUsername().equals(appUser.getUsername())){
                 isUserInProject = true;
                 break;
             }
@@ -52,6 +50,8 @@ public class ProjectServiceImplementation implements ProjectService {
         return projectRepository.findProjectsByUsersUsername(username);
     }
 
+
+
     @Override
     public Project addProject(Project project,String username) {
         AppUser appUser = appUserRepository.findByUsername(username);
@@ -62,7 +62,6 @@ public class ProjectServiceImplementation implements ProjectService {
 
     @Override
     public void addUserToProject(String projectName, String username) {
-        //log.info("Adding new role: {} to user: {}",roleName,username);
         AppUser appUser = appUserRepository.findByUsername(username);
         Project project = projectRepository.findByName(projectName);
 
@@ -79,6 +78,30 @@ public class ProjectServiceImplementation implements ProjectService {
         Project project = projectRepository.findByName(projectName);
         Task task = taskRepository.findTaskByCode(taskCode);
         project.getTasks().add(task);
+    }
+    @Override
+    public List<String> getProjectUsers(String projectName) {
+        return projectRepository.getProjectUsers(projectName);
+    }
+
+    @Override
+    public List<String> getUsersNotInProject(String projectName){
+        return  projectRepository.getUsersAreNotInProject(projectName);
+    }
+
+    @Override
+    public String getProductManagerUsername(String projectName) {
+        return projectRepository.findProductManager(projectName);
+    }
+
+    @Override
+    public Project setProductManager(String projectName,String productManager) {
+        Project project =  projectRepository.findByName(projectName);
+        AppUser user = appUserRepository.findByUsername(productManager);//if null throw exception
+        project.setProductManager(productManager);
+        project.getUsers().add(user);
+        return project;
+
     }
 
 

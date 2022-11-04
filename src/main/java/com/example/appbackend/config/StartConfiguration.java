@@ -39,15 +39,11 @@ public class StartConfiguration {
             appUserService.addRoleToAppUser("krystian","ROLE_USER");
 
 
-            projectService.addProject(new Project(null,"Essilor",new ArrayList<>(),new ArrayList<>()),"test");
-            projectService.addProject(new Project(null,"KESKO",new ArrayList<>(),new ArrayList<>()),"test");
+            projectService.addProject(new Project(null,"Essilor","test",new ArrayList<>(),new ArrayList<>()),"test");
+            projectService.addProject(new Project(null,"KESKO","krystian",new ArrayList<>(),new ArrayList<>()),"test");
 
 
-            taskService.addTask(new Task(null,"ESIINT-510","OPEN",null,null,null));
-            taskService.addTask(new Task(null,"ESIINT-512","IN_PROGRESS",null,null,null));
-            taskService.addTask(new Task(null,"ESIINT-511","DONE",null,null,null));
-
-            taskService.addUserToTask("test","ESIINT-510");
+            taskService.addTask(new Task(null,null,"OPEN",null,null,null,null),"Essilor");
 
             projectService.addTaskToProject("ESIINT-510","Essilor");
             projectService.addTaskToProject("ESIINT-511","Essilor");

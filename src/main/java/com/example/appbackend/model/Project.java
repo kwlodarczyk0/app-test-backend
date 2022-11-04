@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 import static javax.persistence.FetchType.EAGER;
+import static javax.persistence.FetchType.LAZY;
 
 @Entity
 @Data
@@ -30,6 +31,13 @@ public class Project {
     )
     private Long id;
     private String name;
+
+    /*@ManyToOne(fetch = LAZY)
+    @JoinColumn(name = "moderator_id")
+    private AppUser moderator;*/
+
+    private String productManager;
+
     @ManyToMany(fetch = EAGER)
     private Collection<AppUser> users = new ArrayList<>();
 

@@ -42,6 +42,25 @@ public class ProjectController {
         return projectService.addProject(project,auth.getPrincipal().toString());
     }
 
+    @GetMapping("/project/project-users/{projectName}")
+    public List<String> getProjectUsers(@PathVariable String projectName){
+        return projectService.getProjectUsers(projectName);
+    }
+
+    @GetMapping("/project/users-not-in-project/{projectName}")
+    public List<String> getUsersNotInProject(@PathVariable String projectName){
+        return projectService.getUsersNotInProject(projectName);
+    }
+
+    @GetMapping("/project/product-manager/{projectName}")
+    public String getProductManagerName(@PathVariable String projectName){
+        return projectService.getProductManagerUsername(projectName);
+    }
+
+    @PutMapping("/project/product-manager/{projectName}")
+    public Project getProductManagerName(@PathVariable String projectName,@RequestBody String username){
+        return projectService.setProductManager(projectName,username);
+    }
 
 
 }

@@ -1,5 +1,6 @@
 package com.example.appbackend.service.interfaces;
 
+import com.example.appbackend.model.AppUser;
 import com.example.appbackend.model.Project;
 
 import java.util.List;
@@ -15,5 +16,9 @@ public interface ProjectService {
 
     void addTaskToProject(String taskCode, String projectName);
 
+    List<String> getProjectUsers(String projectName);
+    List<String> getUsersNotInProject(String projectName);
+    String getProductManagerUsername(String projectName);
+    Project setProductManager(String projectName,String productManager);
 
 }
