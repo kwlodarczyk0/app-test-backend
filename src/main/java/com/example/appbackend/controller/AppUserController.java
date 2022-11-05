@@ -1,5 +1,6 @@
 package com.example.appbackend.controller;
 
+import com.example.appbackend.controller.dto.ChangePassword;
 import com.example.appbackend.controller.dto.RoleToUserForm;
 import com.example.appbackend.model.AppUser;
 import com.example.appbackend.model.Role;
@@ -66,9 +67,8 @@ public class AppUserController {
     }
 
 
-//    @GetMapping("/users/project-users/{projectName}")
-//    public List<String> getProjectUsers(@PathVariable String projectName){
-//        return appUserService.getProjectUsers(projectName);
-//    }
-
+    @PutMapping("/user/changeUserPassword")
+    public AppUser changeUserPassword(@RequestBody ChangePassword changePassword){
+        return appUserService.changeUserPassword(changePassword.getUsername(), changePassword.getNewPassword(),changePassword.getRepeatedNewPassword(),changePassword.getOldPassword());
+    }
 }

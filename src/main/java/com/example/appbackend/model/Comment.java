@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @Entity
 @Data
@@ -24,6 +25,7 @@ public class Comment {
     )
     private Long id;
     private String text;
+    private Date date;
 
     @OneToOne
     private AppUser user;

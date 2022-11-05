@@ -12,6 +12,8 @@ import org.springframework.core.io.UrlResource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -60,7 +62,8 @@ public class TaskController {
 
     @PostMapping("/task/addComment/{taskCode}")
     public Task addCommentToTask(@PathVariable String taskCode, @RequestBody CommentToTask commentToTask){
-        return taskService.addCommentToTask(commentToTask.getText(),taskCode,commentToTask.getUsername());
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        return taskService.addCommentToTask(commentToTask.getText(),taskCode,auth.getPrincipal().toString());
     }
 
     @DeleteMapping("/task/removeComment/{taskCode}")

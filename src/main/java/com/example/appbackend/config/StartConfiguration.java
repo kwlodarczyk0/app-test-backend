@@ -28,12 +28,11 @@ public class StartConfiguration {
     CommandLineRunner run(AppUserService appUserService, ProjectService projectService, TaskService taskService){
         return args -> {
             appUserService.saveRole(new Role(null,"ROLE_USER"));
-            appUserService.saveRole(new Role(null,"ROLE_MANAGER"));
             appUserService.saveRole(new Role(null,"ROLE_ADMIN"));
-            appUserService.saveRole(new Role(null,"ROLE_SUPER_ADMIN"));
 
             appUserService.saveUser(new AppUser(null,"Hohn","test","1234",new ArrayList<>()));
             //appUserService.addRoleToAppUser("test","ROLE_USER");
+            appUserService.addRoleToAppUser("test","ROLE_ADMIN");
 
             appUserService.saveUser(new AppUser(null,"Hohn","krystian","1234",new ArrayList<>()));
             //appUserService.addRoleToAppUser("krystian","ROLE_USER");
@@ -52,9 +51,9 @@ public class StartConfiguration {
 
             projectService.addUserToProject("KESKO","krystian");
 
-            projectService.addTaskToProject("ESIINT-510","Essilor");
-            projectService.addTaskToProject("ESIINT-511","Essilor");
-            projectService.addTaskToProject("ESIINT-512","Essilor");
+//            projectService.addTaskToProject("ESIINT-510","Essilor");
+//            projectService.addTaskToProject("ESIINT-511","Essilor");
+//            projectService.addTaskToProject("ESIINT-512","Essilor");
 
 
 

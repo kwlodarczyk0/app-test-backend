@@ -7,10 +7,12 @@ import com.example.appbackend.repository.RoleRepository;
 import com.example.appbackend.service.interfaces.AppUserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.context.ApplicationContextException;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -27,7 +29,6 @@ public class AppUserServiceImplementation implements AppUserService, UserDetails
 
     private final AppUserRepository appUserRepository; //RequiredArgsConstructor
     private final RoleRepository roleRepository;
-
     private final PasswordEncoder passwordEncoder;
 
     @Override
@@ -87,7 +88,15 @@ public class AppUserServiceImplementation implements AppUserService, UserDetails
         return appUserRepository.findAll();
     }
 
-
+    @Override
+    public AppUser changeUserPassword(String username, String newPassword,String repeatedNewPassword,String oldPassword) throws ApplicationContextException {
+        AppUser user = appUserRepository.findByUsername(username);
+        if(!newPassword.equals(repeatedNewPassword)) throw new ApplicationContextException("Passwords are not the same");
+        boolean oldPassword1 = passwordEncoder.matches(oldPassword,user.getPassword());
+        if(!oldPassword1) throw new ApplicationContextException("Inncorect old password");
+        user.setPassword(passwordEncoder.encode(newPassword));
+        return user;
+    }
 
 
 }

@@ -35,6 +35,9 @@ public class Task {
     @JoinColumn(name = "user_id")
     private AppUser user;
     private Date creationDate;
+
+    @Lob
+    @Column(columnDefinition="TEXT")
     private String description;
     private String priority;
 

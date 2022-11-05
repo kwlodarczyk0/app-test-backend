@@ -69,6 +69,7 @@ public class TaskServiceImplementation implements TaskService {
         Comment comment = new Comment();
         comment.setText(text);
         comment.setUser(user);
+        comment.setDate(new Date());
         commentRepository.save(comment);
 
         task.getComments().add(comment);

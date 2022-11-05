@@ -12,5 +12,7 @@ public interface AppUserService {
     AppUser getUser(String username);
     List<Role> getRoles(String username);
     List<AppUser> getUsers();
+    AppUser changeUserPassword(String username,String newPassword,String repeatNewPassword,String oldPassword);
+
 
 }
