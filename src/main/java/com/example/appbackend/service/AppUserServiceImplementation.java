@@ -12,7 +12,6 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -91,6 +90,9 @@ public class AppUserServiceImplementation implements AppUserService, UserDetails
     @Override
     public AppUser changeUserPassword(String username, String newPassword,String repeatedNewPassword,String oldPassword) throws ApplicationContextException {
         AppUser user = appUserRepository.findByUsername(username);
+
+        if(user==null) throw new UsernameNotFoundException("User not found in the db");
+
         if(!newPassword.equals(repeatedNewPassword)) throw new ApplicationContextException("Passwords are not the same");
         boolean oldPassword1 = passwordEncoder.matches(oldPassword,user.getPassword());
         if(!oldPassword1) throw new ApplicationContextException("Inncorect old password");

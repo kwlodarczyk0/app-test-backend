@@ -1,5 +1,7 @@
 package com.example.appbackend.service;
 
+import com.example.appbackend.exceptions.Errors;
+import com.example.appbackend.exceptions.ResourceNotFoundException;
 import com.example.appbackend.model.AppUser;
 import com.example.appbackend.model.Comment;
 import com.example.appbackend.model.Project;
@@ -32,12 +34,24 @@ public class TaskServiceImplementation implements TaskService {
 
     @Override
     public Task getTask(String code) {
-        return taskRepository.findTaskByCode(code);
+
+        Task task = taskRepository.findTaskByCode(code);
+
+        if(task==null){
+            throw new ResourceNotFoundException("Task with code "+code+" does not exist");
+        }
+
+        return task;
     }
 
     @Override
     public Task addTask(Task task,String projectName) {
         Project project = projectRepository.findByName(projectName);
+
+        if(project==null) {
+            throw new ResourceNotFoundException(Errors.PROJECT_NOT_FOUND.getMessage());
+        }
+
         task.setStatus("OPEN");
         task.setCode(projectName+"-"+(project.getTasks().toArray().length+1));
         task.setCreationDate(new Date());

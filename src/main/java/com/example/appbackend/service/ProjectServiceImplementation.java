@@ -1,6 +1,7 @@
 package com.example.appbackend.service;
 
 
+import com.example.appbackend.exceptions.ResourceNotFoundException;
 import com.example.appbackend.model.AppUser;
 import com.example.appbackend.model.Project;
 import com.example.appbackend.model.Task;
@@ -81,7 +82,13 @@ public class ProjectServiceImplementation implements ProjectService {
     }
     @Override
     public List<String> getProjectUsers(String projectName) {
-        return projectRepository.getProjectUsers(projectName);
+        List<String> users = projectRepository.getProjectUsers(projectName);
+
+        if(users == null){
+            throw new ResourceNotFoundException("There is not  project");
+        }
+
+        return  users;
     }
 
     @Override
@@ -98,6 +105,7 @@ public class ProjectServiceImplementation implements ProjectService {
     public Project setProductManager(String projectName,String productManager) {
         Project project =  projectRepository.findByName(projectName);
         AppUser user = appUserRepository.findByUsername(productManager);//if null throw exception
+
         project.setProductManager(productManager);
         project.getUsers().add(user);
         return project;
